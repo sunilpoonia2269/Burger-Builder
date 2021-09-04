@@ -12,6 +12,7 @@ const initialState = {
   ingredients: null,
   totalPrice: 4,
   error: false,
+  building: false,
 };
 
 // Utility Methods used for cleaner switch statments
@@ -23,6 +24,7 @@ const addIngredients = (state, action) => {
   const updatedState = {
     ingredients: updatedIngredients,
     totalPrice: state.totalPrice + INGREDIENTS_PRICE[action.ingredientName],
+    building: true,
   };
   return updateObject(state, updatedState);
 };
@@ -35,6 +37,7 @@ const removeIngredients = (state, action) => {
   const updatedState = {
     ingredients: updatedIngredients,
     totalPrice: state.totalPrice - INGREDIENTS_PRICE[action.ingredientName],
+    building: true,
   };
   return updateObject(state, updatedState);
 };
@@ -44,6 +47,7 @@ const setIngredients = (state, action) => {
     ingredients: action.ingredients,
     totalPrice: 4,
     error: false,
+    building: false,
   });
 };
 

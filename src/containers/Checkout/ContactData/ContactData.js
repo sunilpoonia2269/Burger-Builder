@@ -32,6 +32,7 @@ class ContactData extends Component {
         },
         validation: {
           required: true,
+          isEmail: true,
         },
         valid: false,
         touched: false,
@@ -60,6 +61,7 @@ class ContactData extends Component {
           required: true,
           minLength: 6,
           maxLength: 6,
+          isNumeric: true,
         },
         valid: false,
         touched: false,
@@ -165,8 +167,9 @@ class ContactData extends Component {
       ingredients: this.props.ings,
       price: "$" + this.props.price.toFixed(2),
       customer: formData,
+      userId: this.props.userId,
     };
-    this.props.onOrderBurger(order);
+    this.props.onOrderBurger(order, this.props.token);
   };
 
   render() {
@@ -209,7 +212,8 @@ class ContactData extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData)),
+    onOrderBurger: (orderData, token) =>
+      dispatch(actions.purchaseBurger(orderData, token)),
   };
 };
 
@@ -218,6 +222,8 @@ const mapStateToProps = (state) => {
     ings: state.burgerReducer.ingredients,
     price: state.burgerReducer.totalPrice,
     loading: state.orderReducer.loading,
+    token: state.auth.token,
+    userId: state.auth.userId,
   };
 };
 
